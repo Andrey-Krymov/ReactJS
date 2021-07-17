@@ -32,6 +32,31 @@
 .msgStyle:hover {
   text-transform: uppercase;
   color: #61dafb;
+  cursor: pointer;
+}
+
+.btn {
+  padding: 3px;
+  margin-bottom: 25px;
+  background: #61dafb;
+  border: none;
+}
+
+.text {
+  margin: 0 auto;
+}
+
+.input {
+  display: flex;
+  padding-top: 25px;
+  margin: 0 auto;
+}
+
+.btnShow {
+  color: #61dafb;
+  border: 1px solid #61dafb;
+  background-color: #282c34;
+  cursor: pointer;
 }
 
 @keyframes App-logo-spin {
