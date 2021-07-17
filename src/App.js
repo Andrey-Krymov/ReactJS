@@ -1,59 +1,65 @@
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-function usePrevious(value) {
-  const ref = useRef()
-  useEffect(() => {
-    ref.current = value;
-  }, [value])
-  return ref.current
+const AUTHORS = {
+  ME: 'ME',
+  BOT: 'BOT',
 }
 
-function MessagesList() {
-  const messages = [
-    'text',
-    'autor',
-  ]
-  return messages.map((message, index) => <div key={index}>{message}</div>)
-}
-
-function InputForm() {
-  const [message, setMessage] = React.useState('')
-
-  const latestMessage = useRef('')
-  useEffect(() => {
-    latestMessage.current = message
-  })
-
-  const showMessage = () => {
-    alert('You text: ' + latestMessage.current)
-  }
-
-  const handleSendClick = () => {
-    setTimeout(showMessage, 1500)
-  }
-
-  const handleMessageChange = (e) => {
-    setMessage(e.target.value)
-  }
-
-  return (
-    <div className="input">
-      <input value={message} onChange={handleMessageChange} />
-      <button className="btnShow" onClick={handleSendClick}>Send</button>
-    </div>
-  )
+function Message(props) {
+  return <p className="text">
+    {props.author}: {props.text}
+  </p>
 }
 
 function App(props) {
-  const [showChild, setShowChild] = React.useState(false)
 
-  // const numbers = ['1', '2', '3', '4', '5']
+  const [messageList, setMessageList] = React.useState([])
 
-  const handelTogleShowChild = () => {
-    setShowChild(!showChild)
+  const [inputValue, setInputValue] = React.useState('')
+  // const prevMessageList = usePrevious(messageList)
+
+  React.useEffect(() => {
+    if (
+      // prevMessageList &&
+      // prevMessageList.length < messageList.length &&
+      messageList.length &&
+      messageList[messageList.length - 1].author !== AUTHORS.BOT
+    ) {
+      setTimeout(() => {
+        setMessageList((currentMessageList) => [
+          ...currentMessageList,
+          { author: AUTHORS.BOT, text: 'hello' },
+        ])
+      }, 1500)
+
+      // setTimeout(() => {
+      //   setMessageList(
+      //     (currentMessageList) => {
+      //       currentMessageList.push({
+      //         author: AUTHORS.BOT,
+      //         text: 'hello'
+      //       })
+      //       return currentMessage
+      //     }, 1500)
+    }
+  }, [messageList ])
+
+  const hendleMessageChange = (e) => {
+    setInputValue(e.target.value)
   }
+
+  const hendleMessageSabmit = (e) => {
+    e.preventDefault()
+
+    setMessageList((currentMessageList) => [
+      ...currentMessageList,
+      { author: AUTHORS.ME, text: inputValue }
+    ])
+    setInputValue('')
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -66,87 +72,24 @@ function App(props) {
         >
           Lesson 2 homework
         </a>
-        <Message title={props.name} />
-        <button className="btnShow" onClick={handelTogleShowChild}>show Component Class</button>
-        {showChild ? <ComponentClass /> : null}
-        {/* {showChild && <ComponentClass />} */}
 
-        <MessagesList />
-        <InputForm />
+        <form className="app__form" onSubmit={hendleMessageSabmit}>
+          <input
+            required
+            placeholder="Введите сообщение"
+            value={inputValue}
+            onChange={hendleMessageChange} />
+          <button className="btn">send</button>
+        </form>
 
-        {/* <React.Fragment>
-          {numbers.map((number, index) => <div key={index}>{number}</div>)}
-        </React.Fragment> */}
+        {messageList.map((message, index) =>
+          <Message key={index}
+            text={message.text}
+            author={message.author} />)}
+
       </header>
     </div>
   );
-}
-
-function Message(props) {
-  const [count, setCount] = React.useState(0);
-
-  const ref = React.useRef(null)
-  const prevCount = usePrevious(count)
-
-  React.useEffect(() => {
-    console.log('componentDidMount hook');
-    return () => {
-      console.log('componentWillUnmount hook');
-    }
-  }, [])
-
-  React.useEffect(() => {
-    console.log('hook did update', { prevCount, count });
-  }, [prevCount, count])
-
-  // const handleClick = () => setCount(currentCount => currentCount + 1)
-  const handleClick = React.useCallback(() => {
-    setCount(count + 1)
-  }, [count])
-
-  console.log('render', { ref });
-
-  return <div>
-    <span className="msgStyle" ref={ref}>{props.title}</span>
-
-    <p>Count: {count}</p>
-    <button className="btn" onClick={handleClick}>Increase</button>
-  </div>
-};
-
-class ComponentClass extends React.Component {
-  constructor(props) {
-    super(props);
-    console.log('constructor');
-
-    this.state = { count: 0 }
-  }
-
-  componentDidMount() {
-    console.log('componentDidMount');
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    console.log('componentDidUpdate', { prevProps, prevState })
-  }
-
-  componentWillUnmount() {
-    console.log('componentWillUnmount');
-  }
-
-  handleClick = () => {
-    this.setState(currentState => {
-      return { count: currentState.count + 1 }
-    })
-  }
-
-  render() {
-    console.log('render');
-    return <div>
-      <p>Count: {this.state.count}</p>
-      <button className="btn" onClick={this.handleClick}>Increase Component Class</button>
-    </div>
-  }
 }
 
 export default App;

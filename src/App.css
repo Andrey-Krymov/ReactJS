@@ -36,10 +36,14 @@
 }
 
 .btn {
-  padding: 5px;
+  padding: 3px;
   margin-bottom: 25px;
   background: #61dafb;
   border: none;
+}
+
+.text {
+  margin: 0 auto;
 }
 
 .input {
