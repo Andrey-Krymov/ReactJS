@@ -1,64 +1,19 @@
 import React from 'react';
 import logo from './logo.svg';
+import Chat from './ChatItem'
 import './App.css';
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
 
-const AUTHORS = {
-  ME: 'ME',
-  BOT: 'BOT',
-}
+function App() {
+  const [chats] = React.useState([
+    { id: 'chat1', name: 'Чат 1' },
+    { id: 'chat2', name: 'Чат 2' },
+    { id: 'chat3', name: 'Чат 3' },
+  ])
+  const [currentChat, setCurrentChat] = React.useState(chats[0])
 
-function Message(props) {
-  return <p className="text">
-    {props.author}: {props.text}
-  </p>
-}
-
-function App(props) {
-
-  const [messageList, setMessageList] = React.useState([])
-
-  const [inputValue, setInputValue] = React.useState('')
-  // const prevMessageList = usePrevious(messageList)
-
-  React.useEffect(() => {
-    if (
-      // prevMessageList &&
-      // prevMessageList.length < messageList.length &&
-      messageList.length &&
-      messageList[messageList.length - 1].author !== AUTHORS.BOT
-    ) {
-      setTimeout(() => {
-        setMessageList((currentMessageList) => [
-          ...currentMessageList,
-          { author: AUTHORS.BOT, text: 'hello' },
-        ])
-      }, 1500)
-
-      // setTimeout(() => {
-      //   setMessageList(
-      //     (currentMessageList) => {
-      //       currentMessageList.push({
-      //         author: AUTHORS.BOT,
-      //         text: 'hello'
-      //       })
-      //       return currentMessage
-      //     }, 1500)
-    }
-  }, [messageList ])
-
-  const hendleMessageChange = (e) => {
-    setInputValue(e.target.value)
-  }
-
-  const hendleMessageSabmit = (e) => {
-    e.preventDefault()
-
-    setMessageList((currentMessageList) => [
-      ...currentMessageList,
-      { author: AUTHORS.ME, text: inputValue }
-    ])
-    setInputValue('')
-  }
+  const handleChangeChat = (chat) => setCurrentChat(chat)
 
   return (
     <div className="App">
@@ -70,22 +25,27 @@ function App(props) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Lesson 2 homework
+          Lesson 3 homework
         </a>
 
-        <form className="app__form" onSubmit={hendleMessageSabmit}>
-          <input
-            required
-            placeholder="Введите сообщение"
-            value={inputValue}
-            onChange={hendleMessageChange} />
-          <button className="btn">send</button>
-        </form>
+        <div className="app app__content app__content_row">
+          <List className="app__sidebar" subheader="Список чатов">
+            {chats.map((chat) => (
+              <ListItem
+                button
+                key={chat.id}
+                selected={chat.id === currentChat.id}
+                onClick={() => handleChangeChat(chat)}
+              >
+                {chat.name}
+              </ListItem>
+            ))}
+          </List>
 
-        {messageList.map((message, index) =>
-          <Message key={index}
-            text={message.text}
-            author={message.author} />)}
+          <div className="app__main">
+            <Chat id={currentChat.id} />
+          </div>
+        </div>
 
       </header>
     </div>
