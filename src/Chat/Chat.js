@@ -1,8 +1,8 @@
 import React from 'react'
-import Message from './components/Message/Message'
-import Input from './components/Inputs/Input'
-import { AUTHORS } from './components/App/constants'
-import usePrevious from './hooks/usePrevious'
+import Message from '../components/Message/Message'
+import Input from '../components/Inputs/Input'
+import { AUTHORS } from '../components/App/constants'
+import usePrevious from '../hooks/usePrevious'
 
 const Chat = (props) => {
   const [messageList, setMessageList] = React.useState([])
