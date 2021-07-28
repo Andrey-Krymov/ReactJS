@@ -25,8 +25,15 @@
 }
 
 .App-link {
+  display: flex;
+  justify-content: center;
   margin: 20px;
+  gap: 10px;
   color: #61dafb;
+}
+
+.Header_bordered {
+  gap: 10px;
 }
 
 .msgStyle:hover {

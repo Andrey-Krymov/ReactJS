@@ -1,12 +1,11 @@
 import React from 'react';
 import logo from './logo.svg';
-import Chat from './ChatItem'
 import './App.css';
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
+import Router from './Router'
+import { Link } from 'react-router-dom'
 
 function App() {
-  const [chats] = React.useState([
+  const [chats, setChats] = React.useState([
     { id: 'chat1', name: 'Чат 1' },
     { id: 'chat2', name: 'Чат 2' },
     { id: 'chat3', name: 'Чат 3' },
@@ -15,38 +14,55 @@ function App() {
 
   const handleChangeChat = (chat) => setCurrentChat(chat)
 
+  const handleAddChat = (chatName) => {
+    setChats((currentChats) => [
+      ...currentChats,
+      { name: chatName, id: `chat${Date.now()}` },
+    ])
+  }
+
+  const handleRemoveChat = (chatId) => {
+    setChats((currentChats) =>
+      currentChats.filter((chat) => chat.id !== chatId)
+    )
+  }
+
+  const handleIsChatExists = React.useCallback(
+    (chatId) => {
+      return Boolean(chats.find((chat) => chat.id === chatId))
+    },
+    [chats]
+  )
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <a
           className="App-link"
-          href="https://gb.ru/lessons/155799/homework"
+          href="https://gb.ru/lessons/155801/homework"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Lesson 3 homework
+          Lesson 4 hw react-router
         </a>
 
-        <div className="app app__content app__content_row">
-          <List className="app__sidebar" subheader="Список чатов">
-            {chats.map((chat) => (
-              <ListItem
-                button
-                key={chat.id}
-                selected={chat.id === currentChat.id}
-                onClick={() => handleChangeChat(chat)}
-              >
-                {chat.name}
-              </ListItem>
-            ))}
-          </List>
-
-          <div className="app__main">
-            <Chat id={currentChat.id} />
+        <div className="app">
+          <div className="App-link">
+            <Link to="/">Home</Link>
+            <Link to="/chats">Chats</Link>
+            <Link to="/profile">Profile</Link>
           </div>
-        </div>
 
+          <Router
+            chats={chats}
+            currentChat={currentChat}
+            onCurrentChatChange={handleChangeChat}
+            getIsChatExists={handleIsChatExists}
+            onAddChat={handleAddChat}
+            onRemoveChat={handleRemoveChat}
+          />
+        </div>
       </header>
     </div>
   );
