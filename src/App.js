@@ -40,11 +40,11 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <a
           className="App-link"
-          href="https://gb.ru/lessons/155801/homework"
+          href="https://gb.ru/lessons/155802/homework"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Lesson 4 hw react-router
+          Lesson 5 hw react-redux
         </a>
 
         <div className="app">
