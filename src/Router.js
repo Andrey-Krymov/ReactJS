@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router'
 import Chat from './Chat/Chat'
 import Home from './Home'
 import Chats from './Chats/Chats'
+import Profile from './Profile/profile'
 
 export default function Router(props) {
   return (
@@ -42,7 +43,7 @@ export default function Router(props) {
       />
 
       <Route path="/profile">
-        <p>Profile page</p>
+        <Profile />
       </Route>
 
       <Route>
