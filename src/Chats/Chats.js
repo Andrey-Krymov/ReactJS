@@ -5,23 +5,15 @@ import { useHistory } from 'react-router'
 import Input from '../components/Inputs/Input'
 import { Button } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
-import { addChat } from '../actions/chats'
+import { addChat, removeChat } from '../actions/chats'
 
 export default function Chats(props) {
-  const {
-    // chats = [],
-    currentChat,
-    onCurrentChatChange,
-    // onAddChat,
-    onRemoveChat,
-  } = props
   const history = useHistory()
 
   const chats = useSelector((state) => state.chats)
   const dispatch = useDispatch()
 
   const handleChatLinkClick = (chat) => {
-    onCurrentChatChange(chat)
     history.push(`/chats/${chat.id}`)
   }
 
@@ -29,34 +21,37 @@ export default function Chats(props) {
     dispatch(addChat(`chat${Date.now()}`, name))
   }
 
+  const handleRemoveChat = (chatId) => {
+    dispatch(removeChat(chatId))
+  }
+
   return (
     <div className="chats">
-      <div className="chats__sidebar">
-        <List className="app__sidebar" subheader={<p>Список чатов</p>}>
-          {Object.values(chats).map((chat) => (
-            <div style={{ display: 'flex' }}>
-              <ListItem
-                button
-                component="a"
-                key={chat.id}
-                selected={chat.id === currentChat.id}
-                onClick={() => handleChatLinkClick(chat)}
-              >
-                {chat.name}
-              </ListItem>
-              <Button
-                type="submit"
-                color="primary"
-                variant="outlined"
-                onClick={() => onRemoveChat(chat.id)}>
-                Удалить
-              </Button>
-            </div>
-          ))}
-        </List>
-      </div>
+      <List className="chats__sidebar" subheader={<p>Список чатов</p>}>
+        {Object.values(chats).map((chat) => (
+          <div className="chats__sidebar__item" key={chat.id}>
+            <ListItem
+              button
+              component="a"
+              onClick={() => handleChatLinkClick(chat)}
+            >
+              {chat.name}
+            </ListItem>
+            <Button
+              variant="contained"
+              onClick={() => handleRemoveChat(chat.id)}
+            >
+              Delite
+            </Button>
+          </div>
+        ))}
+      </List>
 
-      <Input onSubmit={handleAddChat} />
+      <Input
+        label="Имя чата"
+        placeholder="Введите имя чата"
+        onSubmit={handleAddChat}
+      />
     </div>
   )
 }
