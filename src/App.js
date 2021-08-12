@@ -44,7 +44,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Lesson 6 hw react-redux
+          Lesson 7 hw redux-thunk-persist
         </a>
 
         <div className="app">
