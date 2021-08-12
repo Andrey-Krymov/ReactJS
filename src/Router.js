@@ -4,6 +4,8 @@ import Chat from './Chat/Chat'
 import Home from './Home'
 import Chats from './Chats/Chats'
 import Profile from './Profile/profile'
+import News from './News'
+import Reports from './Reports'
 
 export default function Router(props) {
   return (
@@ -28,9 +30,13 @@ export default function Router(props) {
         <Profile />
       </Route>
 
+      <Route path="/news" component={News} />
+
+      <Route path="/reports" component={Reports} />
+
       <Route>
         <p>404: not found</p>
       </Route>
-    </Switch>
+    </Switch >
   )
 }

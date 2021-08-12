@@ -40,11 +40,11 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <a
           className="App-link"
-          href="https://gb.ru/lessons/155803/homework"
+          href="https://gb.ru/lessons/155805/homework"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Lesson 7 hw redux-thunk-persist
+          Lesson 8 hw работа с API
         </a>
 
         <div className="app">
@@ -52,6 +52,8 @@ function App() {
             <Link to="/">Home</Link>
             <Link to="/chats">Chats</Link>
             <Link to="/profile">Profile</Link>
+            <Link to="/news">News</Link>
+            <Link to="/reports">Reports</Link>
           </div>
 
           <Router
