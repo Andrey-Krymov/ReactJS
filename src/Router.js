@@ -20,27 +20,9 @@ export default function Router(props) {
         )}
       />
 
-      <Route
-        exact
-        path="/chats"
-        render={() => (
-          <Chats
-            chats={props.chats}
-            currentChat={props.currentChat}
-            onCurrentChatChange={props.onCurrentChatChange}
-            getIsChatExists={props.getIsChatExists}
-            onAddChat={props.onAddChat}
-            onRemoveChat={props.onRemoveChat}
-          />
-        )}
-      />
+      <Route exact path="/chats" component={Chats} />
 
-      <Route
-        path="/chats/:chatId"
-        render={() => {
-          return <Chat getIsChatExists={props.getIsChatExists} />
-        }}
-      />
+      <Route path="/chats/:chatId" component={Chat} />
 
       <Route path="/profile">
         <Profile />

@@ -2,27 +2,21 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Checkbox from '@material-ui/core/Checkbox'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
-import { changeIsOnline } from '../actions/profile'
+import { changeIsOnlineWithThunk } from '../actions/profile'
+import ProfileInfo from '../components/ProfileInfo'
 
 export default function Profile(props) {
   const dispatch = useDispatch()
-  const { age, name, isOnline } = useSelector(state => state.profile)
+  const { age, name, isOnline } = useSelector((state) => state.profile)
 
-  const handleIsOnlineChange = (e) => {
-    dispatch(changeIsOnline(e.target.checked))
+  const handleIsOnlineChange = (event) => {
+    dispatch(changeIsOnlineWithThunk(event.target.checked))
   }
 
   return (
     <div>
       <p>Profile page</p>
-      <p>
-        <b>Name: </b>
-        {name}
-      </p>
-      <p>
-        <b>Age: </b>
-        {age}
-      </p>
+      <ProfileInfo age={age} name={name} />
 
       <FormControlLabel
         control={
@@ -38,3 +32,4 @@ export default function Profile(props) {
     </div>
   )
 }
+
