@@ -9,8 +9,9 @@ import { persistReducer, persistStore } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
 const persistConfig = {
-  key: 'root',
   storage,
+  key: 'root',
+  blacklist: ['messages', 'chats'],
 }
 
 const rootReducer = combineReducers({

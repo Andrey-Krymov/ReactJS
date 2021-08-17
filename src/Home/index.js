@@ -1,5 +1,4 @@
 import React from 'react'
-// import { connect, useDispatch, useSelector } from 'react-redux'
 import { connect } from 'react-redux'
 import { changeName } from '../actions/profile'
 import Input from '../components/Inputs/Input'

@@ -36,6 +36,10 @@
   gap: 10px;
 }
 
+.chats__sidebar__item {
+  display: flex;
+  flex-direction: column;
+}
 .msgStyle:hover {
   text-transform: uppercase;
   color: #61dafb;
@@ -43,8 +47,8 @@
 }
 
 .btn {
-  padding: 3px;
-  margin-bottom: 25px;
+  padding: 10px 26px;
+  margin: 25px 0;
   background: #61dafb;
   border: none;
   cursor: pointer;

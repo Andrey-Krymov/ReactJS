@@ -1,38 +1,29 @@
-import React from 'react';
+import React from 'react'
+import firebase from 'firebase'
 import logo from './logo.svg';
 import './App.css';
 import Router from './Router'
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { changeIsAuthed } from './actions/profile'
 
 function App() {
-  // const [chats, setChats] = React.useState([
-  //   { id: 'chat1', name: 'Чат 1' },
-  //   { id: 'chat2', name: 'Чат 2' },
-  //   { id: 'chat3', name: 'Чат 3' },
-  // ])
-  // const [currentChat, setCurrentChat] = React.useState(chats[0])
+  const dispatch = useDispatch()
 
-  // const handleChangeChat = (chat) => setCurrentChat(chat)
+  React.useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      console.log('onAuthStateChanged', { user })
 
-  // const handleAddChat = (chatName) => {
-  //   setChats((currentChats) => [
-  //     ...currentChats,
-  //     { name: chatName, id: `chat${Date.now()}` },
-  //   ])
-  // }
+      dispatch(changeIsAuthed(Boolean(user)))
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
-  // const handleRemoveChat = (chatId) => {
-  //   setChats((currentChats) =>
-  //     currentChats.filter((chat) => chat.id !== chatId)
-  //   )
-  // }
+  const handleSignOut = (e) => {
+    e.preventDefault()
 
-  // const handleIsChatExists = React.useCallback(
-  //   (chatId) => {
-  //     return Boolean(chats.find((chat) => chat.id === chatId))
-  //   },
-  //   [chats]
-  // )
+    firebase.auth().signOut()
+  }
 
   return (
     <div className="App">
@@ -40,11 +31,11 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <a
           className="App-link"
-          href="https://gb.ru/lessons/155805/homework"
+          href="https://gb.ru/lessons/155806/homework"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Lesson 8 hw работа с API
+          Lesson 9 hw Firebase
         </a>
 
         <div className="app">
@@ -54,16 +45,14 @@ function App() {
             <Link to="/profile">Profile</Link>
             <Link to="/news">News</Link>
             <Link to="/reports">Reports</Link>
+            <Link to="/login">Login</Link>
+            <a href="/" onClick={handleSignOut}>
+              Sign out
+            </a>
           </div>
 
-          <Router
-            // chats={chats}
-            // currentChat={currentChat}
-            // onCurrentChatChange={handleChangeChat}
-            // getIsChatExists={handleIsChatExists}
-            // onAddChat={handleAddChat}
-            // onRemoveChat={handleRemoveChat}
-          />
+          <Router />
+
         </div>
       </header>
     </div>

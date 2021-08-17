@@ -1,12 +1,6 @@
-// import { AUTHORS } from '../components/App/constants'
 import { ADD_MESSAGE } from '../actions/messages'
 
-const initialState = {
-  // chat1: [
-  //     { id: 'message1', text: 'Привет', author: AUTHORS.ME },
-  //     { id: 'message2', text: 'Привет!', author: AUTHORS.BOT },
-  // ],
-}
+const initialState = {}
 
 export default function messagesReducer(state = initialState, action) {
   switch (action.type) {

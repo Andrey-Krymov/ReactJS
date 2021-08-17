@@ -38,7 +38,7 @@ const Input = (props) => {
         type="submit"
         color="primary"
         variant="outlined">
-        Отправить
+        SEND
       </Button>
     </form>
   )
