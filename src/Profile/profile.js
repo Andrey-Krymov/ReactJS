@@ -9,6 +9,11 @@ export default function Profile(props) {
   const dispatch = useDispatch()
   const { age, name, isOnline } = useSelector((state) => state.profile)
 
+  // React.useEffect(() => {
+  //   dispatch(addProfileToDatabase())
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [])
+
   const handleIsOnlineChange = (event) => {
     dispatch(changeIsOnlineWithThunk(event.target.checked))
   }
@@ -32,4 +37,3 @@ export default function Profile(props) {
     </div>
   )
 }
-
